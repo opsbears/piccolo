@@ -22,7 +22,6 @@
 		"opsbears/piccolo-web": "^1.0",
 		"opsbears/piccolo-dic": "^1.0",
 		"opsbears/piccolo-http": "^1.0",
-		"opsbears/piccolo-router": "^1.0",
 		"opsbears/piccolo-templating": "^1.0"
 	},
 	"require-dev": {
