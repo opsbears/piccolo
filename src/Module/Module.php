@@ -17,12 +17,20 @@ interface Module {
 	public function getModuleKey() : string;
 
 	/**
+	 * Returns a list of modules this module requires. These will be automatically loaded as a dependency.
+	 *
+	 * @return array
+	 */
+	public function getRequiredModules() : array;
+
+	/**
 	 * Load any configuration besides the default files this module may need. The $config array passed will contain data
 	 * from the default config files that applies to this module.
 	 *
-	 * @param array $config
+	 * @param array $moduleConfig
+	 * @param array $globalConfig
 	 */
-	public function loadConfiguration(array &$config) : void;
+	public function loadConfiguration(array &$moduleConfig, array &$globalConfig);
 
 	/**
 	 * Apply the configuration for the classes in this module to the dependency injection container. The module
@@ -30,7 +38,10 @@ interface Module {
 	 * added later.)
 	 *
 	 * @param DependencyInjectionContainer $dic
-	 * @param array                        $config
+	 * @param array                        $moduleConfig
+	 * @param array                        $globalConfig
 	 */
-	public function configureDependencyInjection(DependencyInjectionContainer $dic, array $config) : void;
+	public function configureDependencyInjection(DependencyInjectionContainer $dic,
+												 array $moduleConfig,
+												 array $globalConfig);
 }

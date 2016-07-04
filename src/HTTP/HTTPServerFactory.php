@@ -9,7 +9,7 @@ use Psr\Http\Message\StreamInterface;
  * A HTTP factory is a class that abstracts the workings required by PSR-7, by creating a HTTP server request from
  * superglobals and creating a stream from a string.
  */
-interface HTTPFactory {
+interface HTTPServerFactory {
 	/**
 	 * @param array           $server
 	 * @param array           $get
@@ -28,7 +28,12 @@ interface HTTPFactory {
 										array $files,
 										StreamInterface $inputStream);
 
-	public function createReadOnlyFileStream($fileName) : StreamInterface;
+	/**
+	 * @param string $fileName
+	 *
+	 * @return StreamInterface
+	 */
+	public function createReadOnlyFileStream(string $fileName) : StreamInterface;
 
-	public function createStringStream($string) : StreamInterface;
+	public function createStringStream(string $string) : StreamInterface;
 }
