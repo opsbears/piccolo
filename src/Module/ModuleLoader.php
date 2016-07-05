@@ -9,6 +9,16 @@ use Piccolo\DependencyInjection\DependencyInjectionContainer;
  * The module loader is responsible for loading all modules, including dependencies, in order.
  */
 class ModuleLoader {
+	/**
+	 * Load all configured modules from the 'modules' configuration key. It calls the modules in this order:
+	 *
+	 * 1. query the required modules and load them if needed.
+	 * 2. call loadConfiguration to load the configuration
+	 * 3. call configureDependencyInjection to set up the dependency injection container.
+	 *
+	 * @param DependencyInjectionContainer $dic
+	 * @param array                        $config
+	 */
 	public function loadModules(DependencyInjectionContainer $dic, array &$config) {
 		$modulesConfig = (isset($config['modules'])?$config['modules']:[]);
 
