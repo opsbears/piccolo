@@ -15,10 +15,19 @@ Piccolo also makes heavy use of interfaces, so configuring the DIC is very impor
 A module works like bundles in Symfony, the are a way to organize and wire up your dependency injection. Each module 
 has four functions:
 
-| `getModuleKey()`       | Returns a string. This will be used as a configuration key, and probably other things too.|
-| `getRequiredModules()` | Returns a list of modules that should be (automatically) loaded before the module in question.|
-| `loadConfiguration()`  | Gives the module a chance to load additional configuration, and wire up other modules.|
-| `configureDependencyInjection()` | Configure the dependency injection container for the classes of the module.|
+### `getModuleKey()`
+Returns a string. This will be used as a configuration key, and probably other things too.
+
+###`getRequiredModules()`
+
+Returns a list of modules that should be (automatically) loaded before the module in question.
+
+### `loadConfiguration()`
+Gives the module a chance to load additional configuration, and wire up other modules.
+
+### `configureDependencyInjection()`
+
+Configure the dependency injection container for the classes of the module.
 
 ## Application
 
