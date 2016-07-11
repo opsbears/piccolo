@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-model xlink:href="vendor/phing/phing/etc/phing-grammar.rng"
+		type="application/xml"
+		schematypens="http://relaxng.org/ns/structure/1.0" ?>
+<project name="opsbears/piccolo" basedir="." default="qa">
+	<target name="phpunit">
+		<exec command="vendor/bin/phpunit" checkreturn="true" logoutput="true" />
+	</target>
+
+	<target name="phpmd">
+		<exec command="vendor/bin/phpmd" checkreturn="true" logoutput="true" />
+	</target>
+
+	<target name="qa">
+		<phingcall target="phpunit" />
+	</target>
+</project>
