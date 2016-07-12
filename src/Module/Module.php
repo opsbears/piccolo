@@ -7,6 +7,14 @@ use Piccolo\DependencyInjection\DependencyInjectionContainer;
 /**
  * Code in Piccolo is organized into modules. (Much like Symfonys bundles.) A module class is needed to declare some
  * basic functionality, like configuration, for each module.
+ *
+ * The simplest way to write a module is to extend the `AbstractModule` class which declares the basic functionality.
+ * You can then simply implement the `configureDependencyInjection()` function to wire up your classes to their
+ * interfaces and send the configuration to the classes that need it.
+ *
+ * See HACKING.md in this repository for more information.
+ * 
+ * @package Core
  */
 interface Module {
 	/**

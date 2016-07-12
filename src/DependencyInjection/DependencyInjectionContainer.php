@@ -7,7 +7,12 @@ namespace Piccolo\DependencyInjection;
  * their signature and constructs the required objects for it.
  *
  * It should only be used around the fringes of the system and should never be passed into the core, otherwise it is
- * turned into a Service Locator, which is an antipattern.
+ * turned into a Service Locator, which is an anti-pattern.
+ *
+ * The DependencyInjectionContainer SHOULD catch internal errors and convert them to a standardized form to make
+ * debugging easier.
+ * 
+ * @package DependencyInjection
  */
 interface DependencyInjectionContainer {
 	/**
@@ -41,6 +46,8 @@ interface DependencyInjectionContainer {
 	 * @param string $class
 	 *
 	 * @return object
+	 *
+	 * @throws DependencyInjectionException
 	 */
 	public function make($class);
 
@@ -51,6 +58,8 @@ interface DependencyInjectionContainer {
 	 * @param array    $arguments Optional arguments set explicitly.
 	 *
 	 * @return mixed
+	 *
+	 * @throws DependencyInjectionException
 	 */
-	public function execute($method, $arguments = []);
+	public function execute(callable $method, $arguments = []);
 }

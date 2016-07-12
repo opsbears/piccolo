@@ -7,6 +7,8 @@ use Piccolo\DependencyInjection\DependencyInjectionContainer;
 
 /**
  * The module loader is responsible for loading all modules, including dependencies, in order.
+ * 
+ * @package Core
  */
 class ModuleLoader {
 	/**
@@ -38,11 +40,11 @@ class ModuleLoader {
 					' was configured as a module, but doesn\'t implement ' . Module::class);
 			}
 
-			if (!in_array($module, $modules)) {
+			if (!\in_array($module, $modules)) {
 				$dic->share($module);
 
 				foreach ($module->getRequiredModules() as $requiredModule) {
-					if (!in_array($requiredModule, $modulesConfig)) {
+					if (!\in_array($requiredModule, $modulesConfig)) {
 						$loadModule($requiredModule);
 					}
 				}

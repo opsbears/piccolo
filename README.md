@@ -2,6 +2,10 @@
 
 Piccolo is a micro framework with a strong emphasis on replacing components and being hackable.
 
+## Licence
+
+This package is licenced under the MIT licence, available in the [LICENCE.md](LICENCE.md) file in this repository.
+
 ## Installation
 
 The easiest way to install piccolo is to create a fresh project with the skeleton repository:
@@ -23,3 +27,6 @@ searching for `opsbears/piccolo`.
 
 Piccolo doesn't enforce any way of building your application. If you want to read about the recommended way of 
 setting up your application, read the readme on [opsbears/piccolo-skel](https://github.com/opsbears/piccolo-skel).
+
+The recommended way of building your application is by using modules. Details on writing modules can be found in the
+[HACKING.md](HACKING.md) file in this repository.

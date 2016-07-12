@@ -36,3 +36,37 @@ configuration as an array, and is free to do as it pleases. It is a good practic
 application only. For simpler DIC handling extend `AbstractApplication`.
 
 A good example of an application is the `WebApplication` class in the `piccolo-web` package.
+
+## Writing a module
+
+When you are writing a module, it is a good practice to define a module class that either inherit from `AbstractModule`
+or implement the `Module` interface. This class allows you to link up your classes to the interfaces they implement. 
+For example a module that implements an interface named `Foo` could look like this:
+
+```
+class MyModule extends AbstractModule {
+    public function configureDependencyInjection(
+        DependencyInjectionContainer $dic,
+        array $moduleConfig,
+        array $globalConfig) {
+        
+        $dic->alias(Foo::class, MyFooImplementation::class);
+    }
+}
+```
+
+You can, of course, also use `configureDependencyInjection()` function to map configuration options to your classes:
+
+```
+class MyModule extends AbstractModule {
+    public function configureDependencyInjection(
+        DependencyInjectionContainer $dic,
+        array $moduleConfig,
+        array $globalConfig) {
+        
+        //...
+        
+        $dic->setClassParameters(MyFooImplementation::class, ['myParameter' => $moduleConfig['myParameter']]);
+    }
+}
+```

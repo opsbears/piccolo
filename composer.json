@@ -1,6 +1,9 @@
 {
 	"name": "opsbears/piccolo",
 	"license": "MIT",
+	"type": "library",
+	"description": "A modular PHP micro-framework",
+	"homepage": "https://piccolo.tools/",
 	"autoload": {
 		"psr-4": {
 			"Piccolo\\": "./src"
@@ -25,5 +28,6 @@
 	},
 	"require-dev": {
 		"opsbears/piccolo-dev-tools": "dev-master"
-	}
+	},
+	"minimum-stability": "dev"
 }
