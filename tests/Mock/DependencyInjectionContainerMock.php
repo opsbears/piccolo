@@ -62,7 +62,7 @@ class DependencyInjectionContainerMock implements DependencyInjectionContainer {
 	 *
 	 * @return mixed
 	 */
-	public function execute($method, $arguments = []) {
+	public function execute(callable $method, $arguments = []) {
 		throw new \BadMethodCallException('Not implemented');
 	}
 
