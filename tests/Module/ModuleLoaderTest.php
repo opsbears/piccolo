@@ -2,7 +2,7 @@
 
 namespace Piccolo\Module;
 
-use Piccolo\Mock\DependencyInjectionContainerMock;
+use Piccolo\Dev\DependencyInjectionContainerMock;
 use Piccolo\Mock\EmptyModuleMock;
 
 /**

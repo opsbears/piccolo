@@ -2,8 +2,8 @@
 
 
 namespace Piccolo\Application;
+use Piccolo\Dev\DependencyInjectionContainerMock;
 use Piccolo\Mock\ApplicationMock;
-use Piccolo\Mock\DependencyInjectionContainerMock;
 use Piccolo\Mock\EmptyModuleMock;
 
 /**

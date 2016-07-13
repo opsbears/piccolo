@@ -1,4 +1,4 @@
-# The Piccolo framework
+# The Piccolo framework [![Build Status](https://travis-ci.org/opsbears/piccolo.svg?branch=master)](https://travis-ci.org/opsbears/piccolo)
 
 Piccolo is a micro framework with a strong emphasis on replacing components and being hackable.
 
