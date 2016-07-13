@@ -7,3 +7,5 @@ before_script:
   - composer install --prefer-source --no-interaction
 script:
   - vendor/bin/phing qa
+after_script:
+  - vendor/bin/piccolo-dependency-updater.php opsbears/piccolo

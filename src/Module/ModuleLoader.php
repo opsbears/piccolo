@@ -29,44 +29,52 @@ class ModuleLoader {
 		 */
 		$modules = [];
 
-		$loadModule = function($moduleClass) use (&$loadModule, &$modules, &$modulesConfig, $dic) {
-			/**
-			 * @var Module $module
-			 */
-			$module = $dic->make($moduleClass);
-
-			if (!$module instanceof Module) {
-				throw new ConfigurationException(get_class($module) .
-					' was configured as a module, but doesn\'t implement ' . Module::class);
-			}
-
-			if (!\in_array($module, $modules)) {
-				$dic->share($module);
-
-				foreach ($module->getRequiredModules() as $requiredModule) {
-					if (!\in_array($requiredModule, $modulesConfig)) {
-						$loadModule($requiredModule);
-					}
-				}
-
-				$modules[] = $module;
-			}
-		};
-
 		foreach ($modulesConfig as $moduleClass) {
-			$loadModule($moduleClass);
+			$this->loadModule($moduleClass, $modules, $modulesConfig, $dic);
 		}
 
 		foreach ($modules as $module) {
-			$key = $module->getModuleKey();
-			if (!isset($config[$key])) {
-				$config[$key] = array();
-			}
-			$module->loadConfiguration($config[$key], $config);
+			$this->loadModuleConfiguration($module, $config);
 		}
 
 		foreach ($modules as $module) {
 			$module->configureDependencyInjection($dic, $config[$module->getModuleKey()], $config);
 		}
+	}
+
+	private function loadModule(
+		$moduleClass,
+		array &$modules,
+		array &$modulesConfig,
+		DependencyInjectionContainer $dic) {
+		/**
+		 * @var Module $module
+		 */
+		$module = $dic->make($moduleClass);
+
+		if (!$module instanceof Module) {
+			throw new ConfigurationException(get_class($module) .
+				' was configured as a module, but doesn\'t implement ' . Module::class);
+		}
+
+		if (!\in_array($module, $modules)) {
+			$dic->share($module);
+
+			foreach ($module->getRequiredModules() as $requiredModule) {
+				if (!\in_array($requiredModule, $modulesConfig)) {
+					$this->loadModule($requiredModule, $modules, $modulesConfig, $dic);
+				}
+			}
+
+			$modules[] = $module;
+		}
+	}
+
+	private function loadModuleConfiguration(Module $module, array &$config) {
+		$key = $module->getModuleKey();
+		if (!isset($config[$key])) {
+			$config[$key] = array();
+		}
+		$module->loadConfiguration($config[$key], $config);
 	}
 }

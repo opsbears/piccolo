@@ -10,7 +10,7 @@ use Piccolo\Mock\EmptyModuleMock;
  */
 class ModuleLoaderTest extends \PHPUnit_Framework_TestCase {
 	/**
-	 * @covers ::loadModules
+	 * @covers Piccolo\Module\ModuleLoader
 	 */
 	public function testEmpty() {
 		//setup
@@ -26,7 +26,7 @@ class ModuleLoaderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers ::loadModules
+	 * @covers Piccolo\Module\ModuleLoader
 	 */
 	public function testWithOneMock() {
 		//setup
