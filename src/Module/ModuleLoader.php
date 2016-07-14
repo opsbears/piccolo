@@ -35,6 +35,17 @@ class ModuleLoader {
 			$this->loadModule($moduleClass, $modules, $moduleList, $dic);
 		}
 
+		$this->processModules($dic, $modules, $config);
+	}
+
+	/**
+	 * Process modules after initial loading.
+	 *
+	 * @param DependencyInjectionContainer $dic
+	 * @param array                        $modules
+	 * @param array                        $config
+	 */
+	private function processModules(DependencyInjectionContainer $dic, array $modules, array &$config) {
 		foreach ($modules as $module) {
 			$this->loadModuleConfiguration($module, $config);
 		}
