@@ -39,7 +39,7 @@ class AbstractApplication {
 	 * @param array                        $config
 	 */
 	public function __construct(DependencyInjectionContainer $dic, array $config) {
-		$this->dic    = $dic;
+		$this->dic = $dic;
 
 		$loader = new ModuleLoader();
 		$loader->loadModules($dic, $config);

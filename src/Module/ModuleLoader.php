@@ -24,7 +24,7 @@ class ModuleLoader {
 	 * @return void
 	 */
 	public function loadModules(DependencyInjectionContainer $dic, array &$config) {
-		$moduleList = (isset($config['modules'])?$config['modules']:[]);
+		$moduleList = (isset($config['modules']) ? $config['modules'] : []);
 
 		/**
 		 * @var Module[] $modules
