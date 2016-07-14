@@ -5,7 +5,7 @@ namespace Piccolo\Configuration;
 /**
  * Indicates a configuration error.
  * 
- * @package Configuration
+ * @package Foundation
  */
 class ConfigurationException extends \Exception {
 

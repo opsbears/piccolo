@@ -24,7 +24,7 @@ use Piccolo\Module\ModuleLoader;
  * }
  * ```
  * 
- * @package Core
+ * @package Foundation
  */
 class AbstractApplication {
 	/**

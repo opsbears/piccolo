@@ -1,4 +1,4 @@
-# The Piccolo framework [![Build Status](https://travis-ci.org/opsbears/piccolo.svg?branch=master)](https://travis-ci.org/opsbears/piccolo)
+# The Piccolo framework [![Build Status](https://travis-ci.org/opsbears/piccolo.svg?branch=master)](https://travis-ci.org/opsbears/piccolo) [![Code Coverage](https://scrutinizer-ci.com/g/opsbears/piccolo/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/opsbears/piccolo/?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/opsbears/piccolo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/opsbears/piccolo/?branch=master)
 
 Piccolo is a micro framework with a strong emphasis on replacing components and being hackable.
 

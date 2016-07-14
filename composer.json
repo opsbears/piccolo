@@ -14,17 +14,13 @@
 			"Piccolo\\": "./tests"
 		}
 	},
-	"require": {
-		"php": "^7.0",
-
-		"psr/log": "^1.0",
-		"psr/http-message": "^1.0",
-		"psr/cache": "^1.0"
-	},
 	"suggest": {
 		"opsbears/piccolo-web": "^1.0",
 		"opsbears/piccolo-dic": "^1.0",
 		"opsbears/piccolo-templating": "^1.0"
+	},
+	"require": {
+		"php": "^7.0"
 	},
 	"require-dev": {
 		"opsbears/piccolo-dev-tools": "dev-master"

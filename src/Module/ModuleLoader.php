@@ -8,7 +8,7 @@ use Piccolo\DependencyInjection\DependencyInjectionContainer;
 /**
  * The module loader is responsible for loading all modules, including dependencies, in order.
  * 
- * @package Core
+ * @package Foundation
  */
 class ModuleLoader {
 	/**
@@ -20,17 +20,19 @@ class ModuleLoader {
 	 *
 	 * @param DependencyInjectionContainer $dic
 	 * @param array                        $config
+	 *
+	 * @return void
 	 */
 	public function loadModules(DependencyInjectionContainer $dic, array &$config) {
-		$modulesConfig = (isset($config['modules'])?$config['modules']:[]);
+		$moduleList = (isset($config['modules'])?$config['modules']:[]);
 
 		/**
 		 * @var Module[] $modules
 		 */
 		$modules = [];
 
-		foreach ($modulesConfig as $moduleClass) {
-			$this->loadModule($moduleClass, $modules, $modulesConfig, $dic);
+		foreach ($moduleList as $moduleClass) {
+			$this->loadModule($moduleClass, $modules, $moduleList, $dic);
 		}
 
 		foreach ($modules as $module) {
@@ -42,10 +44,22 @@ class ModuleLoader {
 		}
 	}
 
+	/**
+	 * Load a module by class name.
+	 *
+	 * @param string                       $moduleClass The module class to load.
+	 * @param Module[]                     $modules     The list of already loaded modules.
+	 * @param array                        $moduleList  The complete module list.
+	 * @param DependencyInjectionContainer $dic         The dependency injection container to use for the module.
+	 *
+	 * @return void
+	 *
+	 * @throws ConfigurationException
+	 */
 	private function loadModule(
 		$moduleClass,
 		array &$modules,
-		array &$modulesConfig,
+		array $moduleList,
 		DependencyInjectionContainer $dic) {
 		/**
 		 * @var Module $module
@@ -61,8 +75,8 @@ class ModuleLoader {
 			$dic->share($module);
 
 			foreach ($module->getRequiredModules() as $requiredModule) {
-				if (!\in_array($requiredModule, $modulesConfig)) {
-					$this->loadModule($requiredModule, $modules, $modulesConfig, $dic);
+				if (!\in_array($requiredModule, $moduleList)) {
+					$this->loadModule($requiredModule, $modules, $moduleList, $dic);
 				}
 			}
 
@@ -70,6 +84,14 @@ class ModuleLoader {
 		}
 	}
 
+	/**
+	 * Load the configuration for a specific module.
+	 *
+	 * @param Module $module
+	 * @param array  $config
+	 *
+	 * @return void
+	 */
 	private function loadModuleConfiguration(Module $module, array &$config) {
 		$key = $module->getModuleKey();
 		if (!isset($config[$key])) {

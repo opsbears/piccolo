@@ -14,7 +14,7 @@ use Piccolo\DependencyInjection\DependencyInjectionContainer;
  *
  * See HACKING.md in this repository for more information.
  * 
- * @package Core
+ * @package Foundation
  */
 interface Module {
 	/**
@@ -37,6 +37,8 @@ interface Module {
 	 *
 	 * @param array $moduleConfig
 	 * @param array $globalConfig
+	 *
+	 * @return void
 	 */
 	public function loadConfiguration(array &$moduleConfig, array &$globalConfig);
 
@@ -48,6 +50,8 @@ interface Module {
 	 * @param DependencyInjectionContainer $dic
 	 * @param array                        $moduleConfig
 	 * @param array                        $globalConfig
+	 *
+	 * @return void
 	 */
 	public function configureDependencyInjection(DependencyInjectionContainer $dic,
 												 array $moduleConfig,

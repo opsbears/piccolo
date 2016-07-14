@@ -19,6 +19,8 @@ interface DependencyInjectionContainer {
 	 * Mark a class, interface or object as shared.
 	 *
 	 * @param string|object $classNameOrInstance
+	 *
+	 * @return void
 	 */
 	public function share($classNameOrInstance);
 
@@ -28,6 +30,8 @@ interface DependencyInjectionContainer {
 	 *
 	 * @param string $interfaceName
 	 * @param string $implementationClassName
+	 *
+	 * @return void
 	 */
 	public function alias($interfaceName, $implementationClassName);
 
@@ -37,6 +41,8 @@ interface DependencyInjectionContainer {
 	 *
 	 * @param string $className
 	 * @param array  $arguments key-value array of arguments and their values.
+	 *
+	 * @return void
 	 */
 	public function setClassParameters($className, $arguments);
 
