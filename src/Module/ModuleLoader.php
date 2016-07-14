@@ -85,13 +85,29 @@ class ModuleLoader {
 		if (!\in_array($module, $modules)) {
 			$dic->share($module);
 
-			foreach ($module->getRequiredModules() as $requiredModule) {
-				if (!\in_array($requiredModule, $moduleList)) {
-					$this->loadModule($requiredModule, $modules, $moduleList, $dic);
-				}
-			}
+			$this->loadRequiredModules($module, $modules, $moduleList, $dic);
 
 			$modules[] = $module;
+		}
+	}
+
+	/**
+	 * Load the modules a certain module requires.
+	 *
+	 * @param Module                       $module
+	 * @param Module[]                     $modules
+	 * @param array                        $moduleList
+	 * @param DependencyInjectionContainer $dic
+	 */
+	private function loadRequiredModules(
+		Module $module,
+		&$modules,
+		array $moduleList,
+		DependencyInjectionContainer $dic) {
+		foreach ($module->getRequiredModules() as $requiredModule) {
+			if (!\in_array($requiredModule, $moduleList)) {
+				$this->loadModule($requiredModule, $modules, $moduleList, $dic);
+			}
 		}
 	}
 
