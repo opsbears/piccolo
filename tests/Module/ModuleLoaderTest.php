@@ -78,6 +78,7 @@ class ModuleLoaderTest extends \PHPUnit_Framework_TestCase {
 			$dependingMockModule->getModuleKey() => [],
 		], $config);
 		$this->assertEquals([], $dic->getAliases());
+		$dependingMockModule->addRequiredModule($emptyMockModule);
 		$this->assertEquals([$dependingMockModule, $emptyMockModule], $dic->getShared());
 	}
 

@@ -41,6 +41,7 @@ class AbstractApplication {
 	public function __construct(DependencyInjectionContainer $dic, array $config) {
 		$this->dic = $dic;
 
+		/** @noinspection PhpInternalEntityUsedInspection */
 		$loader = new ModuleLoader();
 		$loader->loadModules($dic, $config);
 	}

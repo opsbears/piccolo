@@ -7,7 +7,8 @@ use Piccolo\DependencyInjection\DependencyInjectionContainer;
 
 /**
  * The module loader is responsible for loading all modules, including dependencies, in order.
- * 
+ *
+ * @internal
  * @package Foundation
  */
 class ModuleLoader {
@@ -46,6 +47,11 @@ class ModuleLoader {
 	 * @param array                        $config
 	 */
 	private function processModules(DependencyInjectionContainer $dic, array $modules, array &$config) {
+		/** @noinspection PhpInternalEntityUsedInspection */
+		$dependencyGraph = new ModuleDependencyGraph();
+		$dependencyGraph->addModules($modules);
+		$modules = $dependencyGraph->getSortedModuleList();
+
 		foreach ($modules as $module) {
 			$this->loadModuleConfiguration($module, $config);
 		}
@@ -107,6 +113,9 @@ class ModuleLoader {
 		foreach ($module->getRequiredModules() as $requiredModule) {
 			if (!\in_array($requiredModule, $moduleList)) {
 				$this->loadModule($requiredModule, $modules, $moduleList, $dic);
+				if ($module instanceof RequiredModuleAwareModule) {
+					$module->addRequiredModule($dic->make($requiredModule));
+				}
 			}
 		}
 	}

@@ -2,6 +2,7 @@
 
 namespace Piccolo\Module;
 
+use Piccolo\Configuration\ConfigurationException;
 use Piccolo\DependencyInjection\DependencyInjectionContainer;
 
 /**
@@ -13,7 +14,12 @@ use Piccolo\DependencyInjection\DependencyInjectionContainer;
  * 
  * @package Foundation
  */
-abstract class AbstractModule implements Module {
+abstract class AbstractModule implements Module, OrderAwareModule, RequiredModuleAwareModule {
+	/**
+	 * @var Module[]
+	 */
+	private $modules = [];
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -25,7 +31,7 @@ abstract class AbstractModule implements Module {
 	 * {@inheritdoc}
 	 */
 	public function getRequiredModules() : array {
-		return [];
+		return \array_merge($this->getModulesBefore(), $this->getModulesAfter());
 	}
 
 	/**
@@ -40,5 +46,44 @@ abstract class AbstractModule implements Module {
 	public function configureDependencyInjection(DependencyInjectionContainer $dic,
 												 array $moduleConfig,
 												 array $globalConfig) {
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getModulesBefore() : array {
+		return [];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getModulesAfter() : array {
+		return [];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function addRequiredModule(Module $module) {
+		$this->modules[\get_class($module)] = $module;
+	}
+
+	/**
+	 * Returns a module that has been set as required. This is only available after the constructor has finished.
+	 *
+	 * @param string $className
+	 *
+	 * @return Module
+	 *
+	 * @throws ConfigurationException
+	 */
+	protected function getRequiredModule(string $className) {
+		if (\array_key_exists($className, $this->modules)) {
+			return $this->modules[$className];
+		} else {
+			throw new ConfigurationException(__CLASS__ . ' tried to request module ' . $className .
+				', but it was not listed as a dependency or has not yet added.');
+		}
 	}
 }
