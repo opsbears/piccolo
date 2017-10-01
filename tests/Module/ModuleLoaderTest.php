@@ -12,7 +12,7 @@ use Piccolo\Mock\EmptyModuleMock;
  */
 class ModuleLoaderTest extends \PHPUnit_Framework_TestCase {
 	/**
-	 * @covers Piccolo\Module\ModuleLoader
+	 * @covers \Piccolo\Module\ModuleLoader
 	 */
 	public function testEmpty() {
 		//setup
@@ -20,7 +20,7 @@ class ModuleLoaderTest extends \PHPUnit_Framework_TestCase {
 		$dic          = new DependencyInjectionContainerMock();
 		$config       = [];
 		//act
-		$moduleLoader->loadModules($dic, $config);
+		$moduleLoader->loadModules([], $dic, $config);
 		//assert
 		$this->assertEquals([], $config);
 		$this->assertEquals([], $dic->getAliases());

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piccolo\Module;
 
+use Piccolo\Configuration\ConfigurationOptionGroup;
 use Piccolo\DependencyInjection\DependencyInjectionContainer;
 
 /**
@@ -17,43 +20,24 @@ use Piccolo\DependencyInjection\DependencyInjectionContainer;
  * @package Foundation
  */
 interface Module {
-	/**
-	 * Returns an alpha-numeric key for this module that can be used for storing configuration, etc.
-	 *
-	 * @return string
-	 */
-	public function getModuleKey() : string;
+    /**
+     * Returns a list of configuration options this module accepts.
+     *
+     * @return null|ConfigurationOptionGroup
+     */
+    public function getConfigurationOptions() : ?ConfigurationOptionGroup;
 
-	/**
-	 * Returns a list of modules this module requires. These will be automatically loaded as a dependency.
-	 *
-	 * @return array
-	 */
-	public function getRequiredModules() : array;
-
-	/**
-	 * Load any configuration besides the default files this module may need. The $config array passed will contain data
-	 * from the default config files that applies to this module.
-	 *
-	 * @param array $moduleConfig
-	 * @param array $globalConfig
-	 *
-	 * @return void
-	 */
-	public function loadConfiguration(array &$moduleConfig, array &$globalConfig);
-
-	/**
-	 * Apply the configuration for the classes in this module to the dependency injection container. The module
-	 * SHOULD only configure classes that it owns. However, at this point there is no verification for that. (May be
-	 * added later.)
-	 *
-	 * @param DependencyInjectionContainer $dic
-	 * @param array                        $moduleConfig
-	 * @param array                        $globalConfig
-	 *
-	 * @return void
-	 */
-	public function configureDependencyInjection(DependencyInjectionContainer $dic,
-												 array $moduleConfig,
-												 array $globalConfig);
+    /**
+     * Apply the configuration for the classes in this module to the dependency injection container. The module
+     * SHOULD only configure classes that it owns. However, at this point there is no verification for that. (May be
+     * added later.)
+     *
+     * @param DependencyInjectionContainer $dic
+     * @param ModuleConfiguration          $configuration
+     * @return void
+     */
+    public function configureDependencyInjection(
+        DependencyInjectionContainer $dic,
+        ?ModuleConfiguration $configuration
+    ) : void;
 }

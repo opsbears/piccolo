@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Piccolo\Application;
 
 use Piccolo\DependencyInjection\DependencyInjectionContainer;
@@ -31,20 +33,52 @@ class AbstractApplication {
 	 * @var DependencyInjectionContainer
 	 */
 	private $dic;
-	
-	/**
+
+    /**
+     * @var array<string, string>
+     */
+    private $config;
+
+    /**
+     * @var array<Module>
+     */
+    private $modules = [];
+
+    /**
 	 * Initialize the application, load the modules.
 	 *
 	 * @param DependencyInjectionContainer $dic
-	 * @param array                        $config
+	 * @param array<string, string>        $config
 	 */
 	public function __construct(DependencyInjectionContainer $dic, array $config) {
 		$this->dic = $dic;
-
-		/** @noinspection PhpInternalEntityUsedInspection */
-		$loader = new ModuleLoader();
-		$loader->loadModules($dic, $config);
+		$this->config = $config;
 	}
+
+    /**
+     * Load modules and let them configure the dependency injection container. This can only be done once.
+     *
+     * @param array<string> $moduleClasses
+     *
+     * @throws ModulesAlreadyLoadedException
+     */
+	protected function loadModules(array $moduleClasses) {
+	    if (!empty($this->modules)) {
+	        throw new ModulesAlreadyLoadedException();
+        }
+        /** @noinspection PhpInternalEntityUsedInspection */
+        $loader = new ModuleLoader();
+        $this->modules = $loader->loadModules($moduleClasses, $this->dic, $this->config);
+    }
+
+    /**
+     * Return a list of loaded modules.
+     *
+     * @return array<Module>
+     */
+    protected function getModules() {
+	    return $this->modules;
+    }
 
 	/**
 	 * Return the dependency injection container for internal use. Great care must be taken that the dependency
